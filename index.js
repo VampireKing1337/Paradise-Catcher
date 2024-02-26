@@ -2,8 +2,7 @@ const { Client, Message } = require('discord.js-selfbot-v13');
 const { Client: DiscordClient, GatewayIntentBits, ActivityType, EmbedBuilder } = require('discord.js');
 const chalk = require("chalk");
 const request = require('request');
-const logChannelId = '1208789625712418856';
-
+const logChannelId = process.env.LOG
 const selfBotClient = new Client({
   checkUpdate: false,
 });
@@ -16,7 +15,7 @@ const botClient = new DiscordClient({
   ],
 });
 
-const botToken = 'MTIwODc4NjEzNzMyNjU1MTA3MA.GWJHqJ.TIzue3yFErpbwbHlxBYeLJhuUxHyVD3h-d5frc'
+const botToken = process.env.BOT
 const ownerID = '1162923811734302810'
 let targetUserIds = ['1162923811734302810', '804918085713920001', '1200336556578328656'];
 let allowedUserIds = ['1162923811734302810', '804918085713920001', '1200336556578328656','1100403273703362601'];
