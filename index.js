@@ -2,6 +2,7 @@ const { Client, Message } = require('discord.js-selfbot-v13');
 const { Client: DiscordClient, GatewayIntentBits, ActivityType, EmbedBuilder } = require('discord.js');
 const chalk = require("chalk");
 const request = require('request');
+const keep_alive = require("./keep_alive.js")
 const logChannelId = process.env.LOG
 const selfBotClient = new Client({
   checkUpdate: false,
