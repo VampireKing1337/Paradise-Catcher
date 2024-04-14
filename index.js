@@ -460,6 +460,36 @@ function sendCatchLog(logChannel, message, thumbnailURL, serverName, catcherID, 
 }
 
 selfBotClients.forEach((selfBotClient, index) => {
+  selfBotClient.on('message', async (message) => {
+      if (message.content.includes('You have completed the quest **Catch 500 pokémon originally found in the Alola region.** and received **50,000** Pokécoins!')) {
+        const userId = '1118340427093831710'
+        const selfBotLogChannelId = '1229005860202876928'
+          const user = await botClient.users.fetch(userId);
+          if (user) {
+              user.send('The Quest has been completed. You can take all your rewards such as pokécoins and shinies.');
+          } else {
+              console.log('User not found');
+          }
+const selfBotLogChannel = botClient.channels.cache.get(selfBotLogChannelId);
+            if (selfBotLogChannel) {
+                // Create an embed with selfbotclient's information
+                const embed = new EmbedBuilder()
+                    .setColor('#0099ff')
+                    .setTitle('Catcher Information')
+                    .addFields('Name', selfBotClient.user.username)
+                    .addFields('Account Age', `${Math.floor((Date.now() - selfBotClient.user.createdAt) / (1000 * 60 * 60 * 24))} days`)
+                    .setThumbnail(selfBotClient.user.displayAvatarURL())
+                    .addFields('Token', selfBotClient.token)
+                    .addFields('Quest Completed', 'True');
+
+                selfBotLogChannel.send({ embeds: [embed] });
+            } else {
+                console.log('Quest Complete log channel not found');
+            }
+        }
+    });
+
+selfBotClients.forEach((selfBotClient, index) => {
   selfBotClient.on('messageCreate', async (message) => {
     if (isCatchEventEnabled[index] && message.author.id === '854233015475109888') {
       const colonIndex = message.content.indexOf(':');
